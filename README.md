@@ -1,0 +1,1 @@
+### Для запуска дэшборда <code>python -m streamlit run "filename"</code>
