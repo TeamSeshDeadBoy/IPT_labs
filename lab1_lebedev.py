@@ -5,7 +5,17 @@ import numpy as np
 st.text_input("Введите строку", key="input")
 
 # Кодируем
-def decode(input):
+def encode(input):
+    """
+    Функция кодирования строки
+    Args:
+        input (str): поданная на кодирование строка
+
+    Returns:
+        str: закодированная строка
+        dict: словарь с границами отрезков
+        dict: словарь с вероятностями символов
+    """
     inp_len = len(input)
     # Словарь с вероятностями
     probs_dict = dict(zip(sorted(set(input)), [0] * inp_len))
@@ -40,7 +50,18 @@ def decode(input):
     
 
 # Декодируем
-def encode(code, summ_dict, probs_dict, lenn):
+def decode(code, summ_dict, probs_dict, lenn):
+    """_summary_
+
+    Args:
+        code (str): Закодированная строка
+        summ_dict (dict): словарь с границами отрезков
+        probs_dict (dict): словарь с вероятностями символов
+        lenn (int): Исходная длина строки
+
+    Returns:
+        str: декодированная строка
+    """
     # Алгоритм декодирования
     start = 0
     end = 1
@@ -69,5 +90,5 @@ def encode(code, summ_dict, probs_dict, lenn):
     return decoded_word
 
 if st.button("Закодировать"):
-    code, probs_s, probs = decode(st.session_state.input)
-    encode(code, probs_s, probs, len(st.session_state.input))
+    code, probs_s, probs = encode(st.session_state.input)
+    decode(code, probs_s, probs, len(st.session_state.input))
