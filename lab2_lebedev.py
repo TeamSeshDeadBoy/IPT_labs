@@ -27,42 +27,50 @@ def create_dict(input_string):
     return chars_dict
 
 
-def create_head(dictionary):
-    """
-    Создает головную ноду дерева
-    Args:
-        dict (_type_): Входной словарь с символами и их вхождениями
-    """
-    left = NodeTree(list(dictionary.keys())[-1], dictionary[list(dictionary.keys())[-1]])
-    dictionary.pop(list(dictionary.keys())[-1])
-    right = NodeTree(list(dictionary.keys())[-1], dictionary[list(dictionary.keys())[-1]])
-    dictionary.pop(list(dictionary.keys())[-1])
-    head = NodeTree("",left.weight+right.weight, left, right)
-    return head, dictionary
-    
-        
-
-def create_tree(node, dict):
+def create_tree(node, dicti, dangling_nodes=dict()):
     """
     Создает бинарное дерево для кодирования методом Хаффмана.
     Args:
         node (NodeTree): рекурсивно переданная нода.
-        dict (str): словарь с символами.
+        dicti (dict): словарь с символами.
+        dangling_nodes (dict): словарь с неиспользованными нодами.
     Returns:
         NodeTree: головная нода созданного дерева
     """
-    if len(list(dict.keys())) == 0:
+    if len(list(dicti.keys())) == 1:
         return node
     else:
-        if node.weight > dict[list(dict.keys())[-1]]:
-            right = NodeTree(list(dict.keys())[-1], dict[list(dict.keys())[-1]])
-            dict.pop(list(dict.keys())[-1])
-            node = NodeTree("", node.weight + right.weight, node, right)
+        # Берем два наименбших ключа в словаре
+        smallest = list(dicti.keys())[-1]
+        small = list(dicti.keys())[-2]
+
+        # Если это новый лист - создаем его, если это уже созданная нода - достаем из кэша (словаря)
+        headNode = NodeTree()
+        if smallest in list(dangling_nodes.keys()):
+            smallest_node = dangling_nodes[smallest]
+            dangling_nodes.pop(smallest)
         else:
-            left = NodeTree(list(dict.keys())[-1], dict[list(dict.keys())[-1]])
-            dict.pop(list(dict.keys())[-1])
-            node = NodeTree("", node.weight + left.weight, left, node)
-        return create_tree(node, dict)
+            smallest_node = NodeTree(smallest, dicti[smallest])
+
+        if small in list(dangling_nodes.keys()):
+            small_node = dangling_nodes[small]
+            dangling_nodes.pop(small)
+        else:
+            small_node = NodeTree(small, dicti[small])
+
+        # Распределяем их по ветвям
+        headNode.right = smallest_node
+        headNode.left = small_node
+
+        # Добавляем новые элементы в словари
+        dicti[smallest+small] = dicti[smallest] + dicti[small]
+        dicti = dict(sorted(dicti.items(), key=lambda x: x[1], reverse=True))
+        dangling_nodes[smallest+small] = headNode
+
+        # удаляем использованные элементы
+        dicti.pop(list(dicti.keys())[-1])
+        dicti.pop(list(dicti.keys())[-1])
+        return create_tree(headNode, dicti, dangling_nodes)
 
 
 def BFS(node, search_char, path=""):
@@ -101,8 +109,7 @@ if st.button("Закодировать"):
     frequencies_dict = create_dict(st.session_state.st_string)
     st.write("Частота появления символов")
     st.dataframe(frequencies_dict)
-    (tree_head, frequencies_dict) = create_head(frequencies_dict)
-    tree_head = create_tree(tree_head, frequencies_dict)
+    tree_head = create_tree(NodeTree(), frequencies_dict)
     encoded_dict = {}
     for i in list(create_dict(st.session_state.st_string).keys()):
         encoded_dict[i] = BFS(tree_head, i)
