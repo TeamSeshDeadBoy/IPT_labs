@@ -14,6 +14,8 @@ class graph:
 
 
 class Henetics():
+    """Класс имитирует популяцию с хромомсомами и генами, обозначающими города
+    """
     def __init__(self, population_size, chromosome_length, distances):
         self.population = self.create_population(population_size, chromosome_length)
         self.targets = self.evaluate_population(self.population, distances)
@@ -34,14 +36,27 @@ class Henetics():
         return population
 
     def cache_init(self, c_population, distances):
+        """Функция позволяет использорвать кжшированную популяцию как новый обьект популяции
+
+        Args:
+            c_population (arr[][]): кэшированный массив хромосом
+            distances (arr[][]): дистаниции между городами для эвалуации
+        """
         self.population = c_population
         self.targets = self.evaluate_population(self.population, distances)
 
     def add_gene(self, gene, distances):
+        """Функция добавляет и эвалуирует новый (мутированный извне) ген
+        Args:
+            gene (arr[]): ген
+            distances (arr[][]): дистанции мсежду городами для эвалуации
+        """
         self.population.append(gene)
         self.targets = self.evaluate_population(self.population, distances)
 
     def remove_last(self):
+        """Функция удаляет последнюю хросмосому из популяции
+        """
         self.population.pop()
         self.targets.pop()
 
@@ -76,6 +91,13 @@ class GA():
 
 
     def mutate_gene(self, gene):
+        """Мутирует ген одной случайной перестановкой
+        Args:
+            gene (arr[]): ген
+
+        Returns:
+            arr[]: Мутированный ген
+        """
         rv1 = np.random.randint(1,len(self.Population.population[0]) - 2)
         rv2 = np.random.randint(1,len(self.Population.population[0]) - 2)
         while rv2 == rv1:
@@ -86,6 +108,12 @@ class GA():
         return gene
 
     def iterate(self, generation_threshold, temperature):
+        """Процесс итерирования (эволюции популяции)
+
+        Args:
+            generation_threshold (int): максимальное кол-во поколений популяции
+            temperature (int): температура (влияет на вероятность принятия плохого решения для вариативности)
+        """
         progress_bar = st.progress(0)
         gen = 0
         # Кэшируем для вывода
