@@ -54,7 +54,6 @@ class AntColony:
             ant_route.fill(0)
             ant_distances.fill(0)
             for ant in range(self.num_ants):
-                #print("Ant #", ant)
                 # Начальное положение муравьев равномерное
                 ant_route[ant, 0] = np.random.randint(0, self.num_cities-1)
                 

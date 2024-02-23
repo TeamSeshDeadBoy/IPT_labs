@@ -7,9 +7,9 @@ class Hardening:
     Класс реализует функцию цикла отжига
     """
     
-    def __init__(self, function, tmax, tmin, alpha=0.89):
+    def __init__(self, funct, tmax, tmin, alpha=0.89):
         # Гиперпараметры
-        self.funct = function
+        self.funct = funct
         self.tmax = tmax
         self.t = tmax
         self.tmin = tmin
