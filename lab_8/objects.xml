@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="objects.xsl"?>
 <objects>
     <object type="tensor">
-        <description lang="RU">Тензор, состоящий из 20 цветных изображений размера 200x500px (100000px)</description>  
+        <description lang="ru">Тензор, состоящий из 20 цветных изображений размера 200x500px (100000px)</description>  
+        <description lang="en">Tensor consists of 20 Colored images of size 200x500px (100000px)</description>  
         <dimensions>
             <dimension axis="X">20</dimension>
             <dimension axis="Y">3</dimension>
@@ -11,29 +11,34 @@
     </object>
 
     <object type="matrix">
-        <description lang="RU">Матрица, является ч/б изображением размером 200x500px</description>  
+        <description lang="ru">Матрица, является ч/б изображением размером 200x500px</description>  
+        <description lang="en">Plain grayscale image of size 200x500px</description>  
         <dimension_X>200</dimension_X>
         <dimension_Y>500</dimension_Y>
     </object>
 
     <object type="array">
-        <description lang="RU">Массив, является чб изображением размера 32x32px (1024px)</description>  
+        <description lang="ru">Массив, является чб изображением размера 32x32px (1024px)</description>  
+        <description lang="en">Grayscale image size of 32x32px (1024px)</description>  
         <length>1024</length>
     </object>
 
     <object type="array">
-        <description lang="RU">Массив чисел 1-100</description>  
+        <description lang="ru">Массив чисел 1-100</description>  
+        <description lang="en">Array range from 1 to 100</description>  
         <length>100</length>
     </object>
 
     <object type="matrix">
-        <description lang="RU">Обучающая выборка, 15 признаков, 10000 обьектов</description>  
+        <description lang="ru">Обучающая выборка, 15 признаков, 10000 обьектов</description>  
+        <description lang="en">Train data, 15 features, 1000 objects</description>  
         <dimension_X>15</dimension_X>
         <dimension_Y>10000</dimension_Y>
     </object>
 
     <object type="matrix">
-        <description lang="RU">Матрица, является ч/б изображением размером 64x64px</description>  
+        <description lang="ru">Матрица, является ч/б изображением размером 64x64px</description>  
+        <description lang="en">Matrix as a grayscale image size of 64x64px</description>  
         <dimension_X>64</dimension_X>
         <dimension_Y>64</dimension_Y>
     </object>

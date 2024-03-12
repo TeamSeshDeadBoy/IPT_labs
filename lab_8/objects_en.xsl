@@ -13,15 +13,15 @@
     <xsl:template match="/">
         <html>
             <body>
-                <h1>Лебедев Степан. XSL/XML Преобразования</h1>
+                <h1>Lebedev Stepan, XML - XSL Transitions</h1>
 
                 <hr />
-                <h2>Тензоры:</h2>
+                <h2>Tensors:</h2>
 
                 <xsl:for-each select="objects/object[@type='tensor']">
-                    <h3>Тензор-обьект</h3>
+                    <h3>Tensor obj.</h3>
                     <p>
-                        <xsl:value-of select="description" />
+                        <xsl:value-of select="description[@lang='en']" />
                     </p>
                     <table border='1'>
                             <tr>
@@ -31,7 +31,7 @@
                                 </xsl:for-each>
                             </tr>
                             <tr>
-                                <td>Размерность:</td>
+                                <td>Dimensions:</td>
                                 <xsl:for-each select="dimensions/dimension">
                                     <td class="blck"><xsl:value-of select="." /></td>
                                 </xsl:for-each>
@@ -41,16 +41,16 @@
                 </xsl:for-each>
 
                 <hr />
-                <h2>Матрицы:</h2>
+                <h2>Matrices obj.:</h2>
 
                 <xsl:for-each select="objects/object[@type='matrix']">
-                    <h3>Матрица</h3>
+                    <h3>Matrix</h3>
                     <p>
-                        <xsl:value-of select="description" />
+                        <xsl:value-of select="description[@lang='en']" />
                     </p>
                     <table border='1'>
                             <tr>
-                                <td>Размерность:</td>
+                                <td>Dimensions:</td>
                                 <td></td>
                                 <td class="blck"><xsl:value-of select="dimension_X" /></td>
                             </tr>
@@ -64,16 +64,16 @@
                 </xsl:for-each>
 
                 <hr />
-                <h2>Массивы:</h2>
+                <h2>Arrays:</h2>
 
                 <xsl:for-each select="objects/object[@type='array']">
-                        <h3>Одномерный массив</h3>
+                        <h3>Flat array</h3>
                         <p>
-                            <xsl:value-of select="description" />
+                            <xsl:value-of select="description[@lang='en']" />
                         </p>
                         <table border='1'>
                             <tr>
-                                <td>Длина массива:</td>
+                                <td>Length:</td>
                                 <td class="blck"><xsl:value-of select="length" /></td>
                             </tr>
                         </table>
